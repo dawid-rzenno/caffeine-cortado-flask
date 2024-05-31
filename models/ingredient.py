@@ -10,4 +10,4 @@ class IngredientModel(db.Model):
     proteins = db.Column(db.Float, nullable=False)
     carbohydrates = db.Column(db.Float, nullable=False)
     fats = db.Column(db.Float, nullable=False)
-    ingredient_category_id = db.Column(db.Integer, unique=False, nullable=False)
+    ingredient_category_id = db.Column(db.Integer, db.ForeignKey("ingredient_categories.id"), unique=False, nullable=False)

@@ -4,7 +4,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint
 
 from db import diet
-from schemas import DietSchema
+from schemas import DietSchema, DietDetailsSchema
 
 blp = Blueprint("diet", __name__, description="Operations on diets")
 
@@ -12,13 +12,17 @@ blp = Blueprint("diet", __name__, description="Operations on diets")
 @blp.route("/api/food/diet/<diet_id>")
 class Diet(MethodView):
 
-    @blp.response(200, DietSchema)
+    @blp.response(200, DietDetailsSchema)
     def get(self, diet_id):
         return {**diet, "id": diet_id}
 
 
 @blp.route("/api/food/diet")
 class DietUpdate(MethodView):
+
+    @blp.response(200, DietSchema(many=True))
+    def get(self):
+        return [{**diet, "id": uuid.uuid4().hex}, {**diet, "id": uuid.uuid4().hex}]
 
     @blp.arguments(DietSchema)
     @blp.response(201, DietSchema)
@@ -29,11 +33,3 @@ class DietUpdate(MethodView):
             abort(400, message="Invalid parameters")
 
         return new_diet
-
-
-@blp.route("/api/food/diet/all")
-class Diets(MethodView):
-
-    @blp.response(200, DietSchema(many=True))
-    def get(self):
-        return [{**diet, "id": uuid.uuid4().hex}, {**diet, "id": uuid.uuid4().hex}]

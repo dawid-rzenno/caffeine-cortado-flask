@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad861b82-3c58-40da-9b80-0b8e4ecd2d13" name="Changes" comment="Add validation schemas">
-      <change afterPath="$PROJECT_DIR$/models/diet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/ingredient.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/ingredient_category.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/meal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/shopping_list.py" afterDir="false" />
+    <list default="true" id="ad861b82-3c58-40da-9b80-0b8e4ecd2d13" name="Changes" comment="Create models">
+      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/ingredient.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ingredient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/diet.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/diet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/ingredient.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/ingredient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/meal.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/meal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/shopping_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/shopping_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/schemas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717156982241</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Create models">
+      <option name="closed" value="true" />
+      <created>1717164695914</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717164695914</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,6 +146,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create basic server with swagger" />
     <MESSAGE value="Add validation schemas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add validation schemas" />
+    <MESSAGE value="Create models" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create models" />
   </component>
 </project>

@@ -4,21 +4,25 @@ from flask.views import MethodView
 from flask_smorest import Blueprint
 
 from db import ingredient
-from schemas import IngredientSchema
+from schemas import IngredientSchema, IngredientDetailsSchema
 
 blp = Blueprint("ingredient", __name__, description="Operations on ingredients")
 
 
 @blp.route("/api/food/ingredient/<ingredient_id>")
-class Meal(MethodView):
+class Ingredient(MethodView):
 
-    @blp.response(200, IngredientSchema)
+    @blp.response(200, IngredientDetailsSchema)
     def get(self, ingredient_id):
         return {**ingredient, "id": ingredient_id}
 
 
 @blp.route("/api/food/ingredient")
-class MealUpdate(MethodView):
+class IngredientUpdate(MethodView):
+
+    @blp.response(200, IngredientSchema(many=True))
+    def get(self):
+        return [{**ingredient, "id": uuid.uuid4().hex}, {**ingredient, "id": uuid.uuid4().hex}]
 
     @blp.arguments(IngredientSchema)
     @blp.response(201, IngredientSchema)
@@ -29,3 +33,5 @@ class MealUpdate(MethodView):
             abort(400, message="Invalid parameters")
 
         return new_ingredient
+
+

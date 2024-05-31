@@ -1,46 +1,39 @@
+import uuid
+from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from flask import request, abort
+
+from db import diet
+from schemas import DietSchema
 
 blp = Blueprint("diet", __name__, description="Operations on diets")
 
 
-@blp.route("/api/food/diet/<element_id>")
+@blp.route("/api/food/diet/<diet_id>")
 class Diet(MethodView):
-    def get(self, element_id):
-        return {
-            "id": str(element_id),
-            "name": "My diet",
-            "description": "A healthmaxxing diet",
-            "meals": [{
-                "id": "UUID",
-                "name": "Pizza",
-                "description": "A healthy pizza",
-                "ingredients": [{
-                    "id": "UUID",
-                    "name": "Secret ingredient",
-                    "category": 0,
-                    "price": 20,
-                    "count": 1,
-                    "amount": 0.725,
-                    "calories": 750,
-                    "proteins": 100,
-                    "carbohydrates": 500,
-                    "fats": 250
-                }]
-            }]
-        }, 200
 
-    def post(self):
-        request_data = request.get_json()
+    @blp.response(200, DietSchema)
+    def get(self, diet_id):
+        return {**diet, "id": diet_id}
+
+
+@blp.route("/api/food/diet")
+class DietUpdate(MethodView):
+
+    @blp.arguments(DietSchema)
+    @blp.response(201, DietSchema)
+    def post(self, diet_data):
         try:
-            new_meal = {
-                "id": "UUID",
-                "name": request_data["name"],
-                "description": request_data["description"],
-                "meals": request_data["meals"]
-            }
+            new_diet = {**diet_data, "id": uuid.uuid4().hex}
         except KeyError:
             abort(400, message="Invalid parameters")
 
-        return new_meal, 201
+        return new_diet
+
+
+@blp.route("/api/food/diet/all")
+class Diets(MethodView):
+
+    @blp.response(200, DietSchema(many=True))
+    def get(self):
+        return [{**diet, "id": uuid.uuid4().hex}, {**diet, "id": uuid.uuid4().hex}]

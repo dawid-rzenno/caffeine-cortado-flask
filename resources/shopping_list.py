@@ -1,41 +1,39 @@
+import uuid
+from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from flask import request, abort
+
+from db import shopping_list
+from schemas import ShoppingListSchema
 
 blp = Blueprint("shopping-list", __name__, description="Operations on shopping list")
 
 
-@blp.route("/api/food/shopping-list/<element_id>")
+@blp.route("/api/food/shopping-list/<shopping_list_id>")
 class ShoppingList(MethodView):
-    def get(self, element_id):
-        return {
-            "id": str(element_id),
-            "name": "My shopping list",
-            "description": "A shopping list for fitness pizza's ingredients",
-            "ingredients": [{
-                "id": "UUID",
-                "name": "Secret ingredient",
-                "category": 0,
-                "price": 20,
-                "count": 1,
-                "amount": 0.725,
-                "calories": 750,
-                "proteins": 100,
-                "carbohydrates": 500,
-                "fats": 250
-            }]
-        }
 
-    def post(self):
-        request_data = request.get_json()
+    @blp.response(200, ShoppingListSchema)
+    def get(self, shopping_list_id):
+        return {"id": shopping_list_id, **shopping_list}
+
+
+@blp.route("/api/food/shopping-list")
+class ShoppingListUpdate(MethodView):
+
+    @blp.arguments(ShoppingListSchema)
+    @blp.response(201, ShoppingListSchema)
+    def post(self, shopping_list_data):
         try:
-            new_shopping_list = {
-                "id": "UUID",
-                "name": request_data["name"],
-                "description": request_data["description"],
-                "ingredients": request_data["ingredients"]
-            }
+            new_shopping_list = {**shopping_list_data, "id": uuid.uuid4().hex}
         except KeyError:
             abort(400, message="Invalid parameters")
 
-        return new_shopping_list, 201
+        return new_shopping_list
+
+
+@blp.route("/api/food/shopping-list/all")
+class ShoppingLists(MethodView):
+
+    @blp.response(200, ShoppingListSchema(many=True))
+    def post(self):
+        return [{**shopping_list, "id": uuid.uuid4().hex}, {**shopping_list, "id": uuid.uuid4().hex}]

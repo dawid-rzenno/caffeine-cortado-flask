@@ -1,41 +1,31 @@
-from flask import request, abort
+import uuid
+from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
+
+from db import meal
+from schemas import MealSchema
 
 blp = Blueprint("meal", __name__, description="Operations on meals")
 
 
-@blp.route("/api/food/meal/<element_id>")
+@blp.route("/api/food/meal/<meal_id>")
 class Meal(MethodView):
-    def get(self, element_id):
-        return {
-            "id": str(element_id),
-            "name": "Pizza",
-            "description": "A healthy pizza",
-            "ingredients": [{
-                "id": "UUID",
-                "name": "Secret ingredient",
-                "category": 0,
-                "price": 20,
-                "count": 1,
-                "amount": 0.725,
-                "calories": 750,
-                "proteins": 100,
-                "carbohydrates": 500,
-                "fats": 250
-            }]
-        }, 200
 
-    def post(self):
-        request_data = request.get_json()
+    @blp.response(200, MealSchema)
+    def get(self, meal_id):
+        return {**meal, "id": meal_id}
+
+
+@blp.route("/api/food/meal")
+class MealUpdate(MethodView):
+
+    @blp.arguments(MealSchema)
+    @blp.response(201, MealSchema)
+    def post(self, meal_data):
         try:
-            new_meal = {
-                "id": None,
-                "name": request_data["name"],
-                "description": request_data["description"],
-                "ingredients": request_data["ingredients"]
-            }
+            new_meal = {**meal_data, "id": uuid.uuid4().hex}
         except KeyError:
             abort(400, message="Invalid parameters")
 
-        return new_meal, 201
+        return new_meal

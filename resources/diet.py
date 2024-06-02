@@ -23,9 +23,26 @@ class DietByIdResource(MethodView):
         item = DietModel.query.get_or_404(diet_id)
         raise NotImplementedError("Deleting a diet is not implemented.")
 
-    def update(self, diet_id):
-        item = DietModel.query.get_or_404(diet_id)
-        raise NotImplementedError("Updating a diet is not implemented.")
+    @blp.arguments(DietDetailsSchema)
+    @blp.response(200, DietDetailsSchema)
+    def put(self, diet_data, diet_id):
+
+        diet: DietModel = DietModel.query.get(diet_id)
+
+        if diet:
+            diet.name = diet_data['name']
+            diet.description = diet_data['description']
+            diet.meals = diet_data['meals']
+
+            status_code = 200
+        else:
+            diet = DietModel(diet_data)
+            status_code = 201
+
+        db.session.add(diet)
+        db.session.commit()
+
+        return diet, status_code
 
 
 @blp.route("/api/food/diet")

@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad861b82-3c58-40da-9b80-0b8e4ecd2d13" name="Changes" comment="Add sqlite database and create records in tables on a post request">
+    <list default="true" id="ad861b82-3c58-40da-9b80-0b8e4ecd2d13" name="Changes" comment="Get records from tables on a get request">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/data.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/diet.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/diet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/ingredient.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/ingredient.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/meal.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/meal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/shopping_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/shopping_list.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717345338122</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Get records from tables on a get request">
+      <option name="closed" value="true" />
+      <created>1717346201019</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1717346201019</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -165,6 +171,7 @@
     <MESSAGE value="Create models" />
     <MESSAGE value="Separate schemas to get simplified objects when querying lists and detailed object when querying list element id" />
     <MESSAGE value="Add sqlite database and create records in tables on a post request" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add sqlite database and create records in tables on a post request" />
+    <MESSAGE value="Get records from tables on a get request" />
+    <option name="LAST_COMMIT_MESSAGE" value="Get records from tables on a get request" />
   </component>
 </project>

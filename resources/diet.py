@@ -2,8 +2,10 @@ import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
-from db import diet
+from db import db
+from models import DietModel
 from schemas import DietSchema, DietDetailsSchema
 
 blp = Blueprint("diet", __name__, description="Operations on diets")
@@ -27,9 +29,14 @@ class DietUpdate(MethodView):
     @blp.arguments(DietSchema)
     @blp.response(201, DietSchema)
     def post(self, diet_data):
-        try:
-            new_diet = {**diet_data, "id": uuid.uuid4().hex}
-        except KeyError:
-            abort(400, message="Invalid parameters")
+        diet = DietModel(**diet_data)
 
-        return new_diet
+        try:
+            db.session.add(diet)
+            db.session.commit()
+        except IntegrityError:
+            abort(400, "Such diet already exist.")
+        except SQLAlchemyError:
+            abort(500, "An error occurred while adding the diet.")
+
+        return diet

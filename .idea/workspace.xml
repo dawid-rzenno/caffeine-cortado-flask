@@ -4,15 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad861b82-3c58-40da-9b80-0b8e4ecd2d13" name="Changes" comment="Create models">
-      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+    <list default="true" id="ad861b82-3c58-40da-9b80-0b8e4ecd2d13" name="Changes" comment="Separate schemas to get simplified objects when querying lists and detailed object when querying list element id">
+      <change afterPath="$PROJECT_DIR$/instance/data.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/ingredient.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ingredient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/diet.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/diet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/diet.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/diet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/ingredient.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/ingredient.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/meal.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/meal.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/shopping_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources/shopping_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/schemas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,18 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "dawid-rzenno"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dawid-rzenno&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dawid-rzenno/caffeinated-server.git",
-    "accountId": "5f4f77f2-181a-417e-acc1-a7e6b104f116"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dawid-rzenno/caffeinated-server.git&quot;,
+    &quot;accountId&quot;: &quot;5f4f77f2-181a-417e-acc1-a7e6b104f116&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -45,13 +46,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "editor.preferences.tabs"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\caffeinated-server" />
@@ -129,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717164695914</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Separate schemas to get simplified objects when querying lists and detailed object when querying list element id">
+      <option name="closed" value="true" />
+      <created>1717166850299</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1717166850299</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -144,9 +155,11 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Create basic server with swagger" />
     <MESSAGE value="Add validation schemas" />
     <MESSAGE value="Create models" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create models" />
+    <MESSAGE value="Separate schemas to get simplified objects when querying lists and detailed object when querying list element id" />
+    <option name="LAST_COMMIT_MESSAGE" value="Separate schemas to get simplified objects when querying lists and detailed object when querying list element id" />
   </component>
 </project>

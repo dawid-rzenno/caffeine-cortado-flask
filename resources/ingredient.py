@@ -5,30 +5,41 @@ from flask_smorest import Blueprint
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
+from models import IngredientModel
 from schemas import IngredientSchema, IngredientDetailsSchema
 
 blp = Blueprint("ingredient", __name__, description="Operations on ingredients")
 
 
 @blp.route("/api/food/ingredient/<ingredient_id>")
-class Ingredient(MethodView):
+class IngredientByIdResource(MethodView):
 
     @blp.response(200, IngredientDetailsSchema)
     def get(self, ingredient_id):
-        return {**ingredient, "id": ingredient_id}
+        ingredient = IngredientModel.query.get_or_404(ingredient_id)
+        return ingredient
+
+    def delete(self, diet_id):
+        item = IngredientModel.query.get_or_404(diet_id)
+        raise NotImplementedError("Deleting an ingredient not implemented.")
+
+    def update(self, diet_id):
+        item = IngredientModel.query.get_or_404(diet_id)
+        raise NotImplementedError("Updating an ingredient is not implemented.")
 
 
 @blp.route("/api/food/ingredient")
-class IngredientUpdate(MethodView):
+class IngredientResource(MethodView):
 
     @blp.response(200, IngredientSchema(many=True))
     def get(self):
-        return [{**ingredient, "id": uuid.uuid4().hex}, {**ingredient, "id": uuid.uuid4().hex}]
+        ingredients = IngredientModel.query.all()
+        return ingredients
 
-    @blp.arguments(IngredientSchema)
-    @blp.response(201, IngredientSchema)
+    @blp.arguments(IngredientDetailsSchema)
+    @blp.response(201, IngredientDetailsSchema)
     def post(self, ingredient_data):
-        ingredient = Ingredient(ingredient_data)
+        ingredient = IngredientModel(ingredient_data)
 
         try:
             db.session.add(ingredient)

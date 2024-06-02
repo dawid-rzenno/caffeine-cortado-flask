@@ -12,22 +12,32 @@ blp = Blueprint("meal", __name__, description="Operations on meals")
 
 
 @blp.route("/api/food/meal/<meal_id>")
-class Meal(MethodView):
+class MealByIdResource(MethodView):
 
     @blp.response(200, MealDetailsSchema)
     def get(self, meal_id):
-        return {**meal, "id": meal_id}
+        meal = MealModel.query.get_or_404(meal_id)
+        return meal
+
+    def delete(self, diet_id):
+        item = MealModel.query.get_or_404(diet_id)
+        raise NotImplementedError("Deleting a meal is not implemented.")
+
+    def update(self, diet_id):
+        item = MealModel.query.get_or_404(diet_id)
+        raise NotImplementedError("Updating a meal is not implemented.")
 
 
 @blp.route("/api/food/meal")
-class MealUpdate(MethodView):
+class MealResource(MethodView):
 
     @blp.response(200, MealSchema(many=True))
     def get(self):
-        return [{**meal, "id": uuid.uuid4().hex}, {**meal, "id": uuid.uuid4().hex}]
+        meals = MealModel.query.all()
+        return meals
 
-    @blp.arguments(MealSchema)
-    @blp.response(201, MealSchema)
+    @blp.arguments(MealDetailsSchema)
+    @blp.response(201, MealDetailsSchema)
     def post(self, meal_data):
         meal = MealModel(meal_data)
 

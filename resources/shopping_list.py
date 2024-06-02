@@ -12,22 +12,32 @@ blp = Blueprint("shopping-list", __name__, description="Operations on shopping l
 
 
 @blp.route("/api/food/shopping-list/<shopping_list_id>")
-class ShoppingList(MethodView):
+class ShoppingListByIdResource(MethodView):
 
     @blp.response(200, ShoppingListDetailsSchema)
     def get(self, shopping_list_id):
-        return {"id": shopping_list_id, **shopping_list}
+        shopping_list = ShoppingListModel.query.get_or_404(shopping_list_id)
+        return shopping_list
+
+    def delete(self, diet_id):
+        item = ShoppingListModel.query.get_or_404(diet_id)
+        raise NotImplementedError("Deleting a shopping list is not implemented.")
+
+    def update(self, diet_id):
+        item = ShoppingListModel.query.get_or_404(diet_id)
+        raise NotImplementedError("Updating a shopping list is not implemented.")
 
 
 @blp.route("/api/food/shopping-list")
-class ShoppingListUpdate(MethodView):
+class ShoppingListResource(MethodView):
 
     @blp.response(200, ShoppingListSchema(many=True))
     def get(self):
-        return [{**shopping_list, "id": uuid.uuid4().hex}, {**shopping_list, "id": uuid.uuid4().hex}]
+        shopping_lists = ShoppingListModel.query.all()
+        return shopping_lists
 
-    @blp.arguments(ShoppingListSchema)
-    @blp.response(201, ShoppingListSchema)
+    @blp.arguments(ShoppingListDetailsSchema)
+    @blp.response(201, ShoppingListDetailsSchema)
     def post(self, shopping_list_data):
         shopping_list = ShoppingListModel(shopping_list_data)
 

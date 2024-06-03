@@ -19,9 +19,12 @@ class DietByIdResource(MethodView):
         diet = DietModel.query.get_or_404(diet_id)
         return diet
 
+    @blp.response(200, None)
     def delete(self, diet_id):
         item = DietModel.query.get_or_404(diet_id)
-        raise NotImplementedError("Deleting a diet is not implemented.")
+        db.session.delete(item)
+        db.session.commit()
+        return {"message": "Diet deleted."}
 
     @blp.arguments(DietDetailsSchema)
     @blp.response(200, DietDetailsSchema)

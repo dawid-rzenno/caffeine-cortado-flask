@@ -2,7 +2,7 @@ from db import db
 
 
 class MealModel(db.Model):
-    __tablename__ = "meals"
+    __tablename__ = "meal"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True, nullable=False)

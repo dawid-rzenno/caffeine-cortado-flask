@@ -1,7 +1,8 @@
 from db import db
 
 
-class DietMealModel(db.Model):
-    __tablename__ = "diet_meal"
-
-    id = db.Column(db.Integer, primary_key=True)
+diet_meal = db.Table(
+    "diet_meal",
+    db.Column("diet_id", db.Integer, db.ForeignKey('diet.id')),
+    db.Column("meal_id", db.Integer, db.ForeignKey('meal.id'))
+)

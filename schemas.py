@@ -4,7 +4,7 @@ from marshmallow import Schema, fields
 class IngredientSchema(Schema):
     id = fields.Str(dump_only=True)
     name = fields.Str(required=True)
-    category = fields.Int(required=True)
+    ingredient_category_id = fields.Int(required=True)
     price = fields.Float(required=True)
 
 
@@ -15,6 +15,7 @@ class IngredientDetailsSchema(IngredientSchema):
     proteins = fields.Float(required=True)
     carbohydrates = fields.Float(required=True)
     fats = fields.Float(required=True)
+    price = fields.Float(required=True)
 
 
 class MealSchema(Schema):
@@ -35,7 +36,7 @@ class DietSchema(Schema):
 
 
 class DietDetailsSchema(DietSchema):
-    meals = fields.List(fields.Nested(MealSchema()))
+    meals = fields.List(fields.Nested(MealDetailsSchema()))
 
 
 class ShoppingListSchema(Schema):
@@ -46,4 +47,4 @@ class ShoppingListSchema(Schema):
 
 
 class ShoppingListDetailsSchema(ShoppingListSchema):
-    ingredients = fields.List(fields.Nested(IngredientSchema()))
+    ingredients = fields.List(fields.Nested(IngredientDetailsSchema()))

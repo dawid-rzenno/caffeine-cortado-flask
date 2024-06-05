@@ -1,4 +1,3 @@
-import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
@@ -59,7 +58,7 @@ class DietResource(MethodView):
     @blp.arguments(DietDetailsSchema)
     @blp.response(201, DietDetailsSchema)
     def post(self, diet_data):
-        diet = DietModel(**diet_data)
+        diet = DietModel(request_data=diet_data)
 
         try:
             db.session.add(diet)

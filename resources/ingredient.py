@@ -1,4 +1,3 @@
-import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
@@ -19,12 +18,14 @@ class IngredientByIdResource(MethodView):
         ingredient = IngredientModel.query.get_or_404(ingredient_id)
         return ingredient
 
-    def delete(self, diet_id):
-        item = IngredientModel.query.get_or_404(diet_id)
-        raise NotImplementedError("Deleting an ingredient not implemented.")
+    def delete(self, ingredient_id):
+        item = IngredientModel.query.get_or_404(ingredient_id)
+        db.session.delete(item)
+        db.session.commit()
+        return {"message": "Diet deleted."}
 
-    def update(self, diet_id):
-        item = IngredientModel.query.get_or_404(diet_id)
+    def update(self, ingredient_id):
+        item = IngredientModel.query.get_or_404(ingredient_id)
         raise NotImplementedError("Updating an ingredient is not implemented.")
 
 

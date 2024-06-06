@@ -1,4 +1,3 @@
-import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
@@ -19,12 +18,14 @@ class ShoppingListByIdResource(MethodView):
         shopping_list = ShoppingListModel.query.get_or_404(shopping_list_id)
         return shopping_list
 
-    def delete(self, diet_id):
-        item = ShoppingListModel.query.get_or_404(diet_id)
-        raise NotImplementedError("Deleting a shopping list is not implemented.")
+    def delete(self, shopping_list_id):
+        item = ShoppingListModel.query.get_or_404(shopping_list_id)
+        db.session.delete(item)
+        db.session.commit()
+        return {"message": "Diet deleted."}
 
-    def update(self, diet_id):
-        item = ShoppingListModel.query.get_or_404(diet_id)
+    def update(self, shopping_list_id):
+        item = ShoppingListModel.query.get_or_404(shopping_list_id)
         raise NotImplementedError("Updating a shopping list is not implemented.")
 
 

@@ -1,10 +1,10 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 from flask_smorest import Api
 
 from db import db
-import models
 
 from resources.meal import blp as meal_blueprint
 from resources.diet import blp as diet_blueprint
@@ -14,6 +14,8 @@ from resources.shopping_list import blp as shopping_list_blueprint
 
 def create_app(db_url = None):
     app = Flask(__name__)
+
+    CORS(app)
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config["API_TITLE"] = "Caffeinated Server REST API"

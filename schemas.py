@@ -1,6 +1,12 @@
 from marshmallow import Schema, fields
 
 
+class QueryArgsSchema(Schema):
+    search = fields.Str()
+    page_index = fields.Str()
+    page_size = fields.Str()
+
+
 class IngredientSchema(Schema):
     id = fields.Str(dump_only=True)
     name = fields.Str(required=True)

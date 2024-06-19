@@ -3,7 +3,7 @@ from flask_smorest import Blueprint
 
 from db import db
 from models import IngredientModel
-from schemas import IngredientSchema, IngredientDetailsSchema
+from schemas import IngredientSchema, IngredientDetailsSchema, QueryArgsSchema
 
 blp = Blueprint("ingredient", __name__, description="Operations on ingredients")
 
@@ -30,9 +30,26 @@ class IngredientByIdResource(MethodView):
 @blp.route("/api/food/ingredient")
 class IngredientResource(MethodView):
 
+    @blp.arguments(QueryArgsSchema, location='querystring')
     @blp.response(200, IngredientSchema(many=True))
-    def get(self):
-        ingredients = IngredientModel.query.all()
+    def get(self, query_params):
+        search = ''
+        page_size = 50
+        page_index = 1
+
+        if "search" in query_params:
+            search = query_params["search"]
+
+        if "page_size" in query_params:
+            page_size = query_params["page_size"]
+
+        if "page_index" in query_params:
+            page_index = query_params["page_index"]
+
+        ingredients = (IngredientModel.query
+                       .where(IngredientModel.name.like("%" + search + "%"))
+                       .paginate(per_page=page_size, page=page_index))
+
         return ingredients
 
     @blp.arguments(IngredientDetailsSchema)

@@ -12,7 +12,7 @@ from resources.ingredient import blp as ingredient_blueprint
 from resources.shopping_list import blp as shopping_list_blueprint
 
 
-def create_app(db_url = None):
+def create_app(db_url="postgresql+psycopg2://postgres:example@192.168.0.100:5432/fitness"):
     app = Flask(__name__)
 
     app.__version__ = '0.3.0'

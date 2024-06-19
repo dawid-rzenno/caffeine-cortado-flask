@@ -5,3 +5,4 @@ python-dotenv
 marshmallow~=3.21.2
 SQLAlchemy~=2.0.30
 flask-cors
+psycopg2

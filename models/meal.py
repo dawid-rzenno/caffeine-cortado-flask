@@ -21,5 +21,13 @@ class MealModel(db.Model):
         self.description = request_data.get('description')
         self.rating = request_data.get('rating')
 
-        if request_data.get('ingredients'):
-            self.ingredients = [IngredientModel(**ingredient) for ingredient in request_data.get('ingredients')]
+        ingredient_ids = request_data.get('ingredient_ids')
+
+        self.ingredients = []
+        if ingredient_ids:
+            for ingredient_id in ingredient_ids:
+                self.ingredients.append(IngredientModel.query.get_or_404(ingredient_id))
+
+
+
+

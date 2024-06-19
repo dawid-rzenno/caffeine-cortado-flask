@@ -42,12 +42,7 @@ class ShoppingListResource(MethodView):
     def post(self, shopping_list_data):
         shopping_list = ShoppingListModel(shopping_list_data)
 
-        try:
-            db.session.add(shopping_list)
-            db.session.commit()
-        except IntegrityError:
-            abort(400, "Such shopping list already exist.")
-        except SQLAlchemyError:
-            abort(500, "An error occurred while adding the shopping list.")
+        db.session.add(shopping_list)
+        db.session.commit()
 
         return shopping_list

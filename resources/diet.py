@@ -58,14 +58,9 @@ class DietResource(MethodView):
     @blp.arguments(DietDetailsSchema)
     @blp.response(201, DietDetailsSchema)
     def post(self, diet_data):
-        diet = DietModel(request_data=diet_data)
+        diet = DietModel(diet_data)
 
-        try:
-            db.session.add(diet)
-            db.session.commit()
-        except IntegrityError:
-            abort(400, "Such diet already exist.")
-        except SQLAlchemyError:
-            abort(500, "An error occurred while adding the diet.")
+        db.session.add(diet)
+        db.session.commit()
 
         return diet

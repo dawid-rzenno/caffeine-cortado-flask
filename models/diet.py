@@ -19,5 +19,9 @@ class DietModel(db.Model):
         self.name = request_data.get('name')
         self.description = request_data.get('description')
 
-        if request_data.get('meals'):
-            self.meals = [MealModel(meal) for meal in request_data.get('meals')]
+        meal_ids = request_data.get('meal_ids')
+
+        self.meals = []
+        if meal_ids:
+            for meal_id in meal_ids:
+                self.meals.append(MealModel.query.get_or_404(meal_id))

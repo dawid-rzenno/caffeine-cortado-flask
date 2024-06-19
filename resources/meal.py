@@ -42,12 +42,7 @@ class MealResource(MethodView):
     def post(self, meal_data):
         meal = MealModel(meal_data)
 
-        try:
-            db.session.add(meal)
-            db.session.commit()
-        except IntegrityError:
-            abort(400, "Such meal already exist.")
-        except SQLAlchemyError:
-            abort(500, "An error occurred while adding the meal.")
+        db.session.add(meal)
+        db.session.commit()
 
         return meal

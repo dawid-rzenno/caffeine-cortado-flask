@@ -1,7 +1,5 @@
-from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import IngredientModel
@@ -40,15 +38,10 @@ class IngredientResource(MethodView):
     @blp.arguments(IngredientDetailsSchema)
     @blp.response(201, IngredientDetailsSchema)
     def post(self, ingredient_data):
-        ingredient = IngredientModel(ingredient_data)
+        ingredient = IngredientModel(**ingredient_data)
 
-        try:
-            db.session.add(ingredient)
-            db.session.commit()
-        except IntegrityError:
-            abort(400, "Such ingredient already exist.")
-        except SQLAlchemyError:
-            abort(500, "An error occurred while adding the ingredient.")
+        db.session.add(ingredient)
+        db.session.commit()
 
         return ingredient
 

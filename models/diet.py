@@ -13,6 +13,9 @@ class DietModel(db.Model):
     meals = db.relationship("MealModel", secondary=diet_meal, backref="diets")
 
     def __init__(self, request_data: dict):
+        self.update(request_data)
+
+    def update(self, request_data: dict):
         if request_data.get('id'):
             self.id = request_data.get('id')
 

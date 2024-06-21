@@ -15,12 +15,10 @@ class PaginationSchema(Schema):
 
 
 class IngredientSchema(Schema):
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     category_id = fields.Int(required=True)
     price = fields.Float(required=True)
-    amount = fields.Float(dump_only=True)
-    quantity = fields.Int(dump_only=True)
 
 
 class PaginatedIngredientsSchema(Schema):
@@ -33,14 +31,13 @@ class IngredientDetailsSchema(IngredientSchema):
     proteins = fields.Float(required=True)
     carbohydrates = fields.Float(required=True)
     fats = fields.Float(required=True)
-    price = fields.Float(required=True)
 
 
 ################################## MEAL ###########################################
 
 
 class MealSchema(Schema):
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     description = fields.Str(required=True)
     rating = fields.Int(required=True)
@@ -60,7 +57,7 @@ class MealDetailsSchema(MealSchema):
 
 
 class DietSchema(Schema):
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     description = fields.Str(required=True)
 
@@ -71,7 +68,7 @@ class PaginatedDietsSchema(Schema):
 
 
 class DietDetailsSchema(DietSchema):
-    meals = fields.List(fields.Nested(MealDetailsSchema()))
+    meals = fields.List(fields.Nested(MealSchema()))
     meal_ids = fields.List(fields.Int())
 
 
@@ -79,7 +76,7 @@ class DietDetailsSchema(DietSchema):
 
 
 class ShoppingListSchema(Schema):
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     description = fields.Str(required=True)
 

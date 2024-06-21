@@ -28,22 +28,12 @@ class DietByIdResource(MethodView):
     @blp.response(200, DietDetailsSchema)
     def put(self, diet_data, diet_id):
 
-        diet: DietModel = DietModel.query.get(diet_id)
+        diet = DietModel.query.get_or_404(diet_id)
+        diet.update(diet_data)
 
-        if diet:
-            diet.name = diet_data['name']
-            diet.description = diet_data['description']
-            diet.meals = diet_data['meals']
-
-            status_code = 200
-        else:
-            diet = DietModel(diet_data)
-            status_code = 201
-
-        db.session.add(diet)
         db.session.commit()
 
-        return diet, status_code
+        return diet
 
 
 @blp.route("/api/food/diet")

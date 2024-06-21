@@ -15,7 +15,7 @@ from resources.shopping_list import blp as shopping_list_blueprint
 def create_app(db_url = None):
     app = Flask(__name__)
 
-    app.__version__ = '0.1.0'
+    app.__version__ = '0.3.0'
 
     CORS(app)
 

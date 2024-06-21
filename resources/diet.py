@@ -1,11 +1,10 @@
-from flask import abort
+from flask.views import MethodView
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import DietModel
-from schemas import DietSchema, DietDetailsSchema
+from schemas import DietDetailsSchema, QueryArgsSchema, PaginatedDietsSchema
 
 blp = Blueprint("diet", __name__, description="Operations on diets")
 
@@ -50,10 +49,27 @@ class DietByIdResource(MethodView):
 @blp.route("/api/food/diet")
 class DietResource(MethodView):
 
-    @blp.response(200, DietSchema(many=True))
-    def get(self):
-        diets = DietModel.query.all()
-        return diets
+    @blp.arguments(QueryArgsSchema, location='querystring')
+    @blp.response(200, PaginatedDietsSchema)
+    @blp.paginate()
+    def get(self, query_params, pagination_parameters):
+        page_size = pagination_parameters.page_size
+        page = pagination_parameters.page
+
+        search = ''
+        if "search" in query_params:
+            search = query_params["search"]
+
+        diets = DietModel.query.where(DietModel.name.like("%" + search + "%"))
+
+        return {
+            'results': diets.paginate(per_page=page_size, page=page),
+            'pagination': {
+                'total': diets.count(),
+                'page_size': page_size,
+                'page': page
+            }
+        }
 
     @blp.arguments(DietDetailsSchema)
     @blp.response(201, DietDetailsSchema)

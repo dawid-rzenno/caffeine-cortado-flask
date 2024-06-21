@@ -1,11 +1,10 @@
-from flask import abort
+from flask.views import MethodView
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import MealModel
-from schemas import MealSchema, MealDetailsSchema
+from schemas import MealDetailsSchema, QueryArgsSchema, PaginatedMealsSchema
 
 blp = Blueprint("meal", __name__, description="Operations on meals")
 
@@ -32,10 +31,27 @@ class MealByIdResource(MethodView):
 @blp.route("/api/food/meal")
 class MealResource(MethodView):
 
-    @blp.response(200, MealSchema(many=True))
-    def get(self):
-        meals = MealModel.query.all()
-        return meals
+    @blp.arguments(QueryArgsSchema, location='querystring')
+    @blp.response(200, PaginatedMealsSchema)
+    @blp.paginate()
+    def get(self, query_params, pagination_parameters):
+        page_size = pagination_parameters.page_size
+        page = pagination_parameters.page
+
+        search = ''
+        if "search" in query_params:
+            search = query_params["search"]
+
+        meals = MealModel.query.where(MealModel.name.like("%" + search + "%"))
+
+        return {
+            'results': meals.paginate(per_page=page_size, page=page),
+            'pagination': {
+                'total': meals.count(),
+                'page_size': page_size,
+                'page': page
+            }
+        }
 
     @blp.arguments(MealDetailsSchema)
     @blp.response(201, MealDetailsSchema)

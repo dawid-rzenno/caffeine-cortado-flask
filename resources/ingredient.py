@@ -3,7 +3,7 @@ from flask_smorest import Blueprint
 
 from db import db
 from models import IngredientModel
-from schemas import IngredientSchema, IngredientDetailsSchema, QueryArgsSchema
+from schemas import IngredientDetailsSchema, QueryArgsSchema, PaginatedIngredientsSchema
 
 blp = Blueprint("ingredient", __name__, description="Operations on ingredients")
 
@@ -31,26 +31,27 @@ class IngredientByIdResource(MethodView):
 class IngredientResource(MethodView):
 
     @blp.arguments(QueryArgsSchema, location='querystring')
-    @blp.response(200, IngredientSchema(many=True))
-    def get(self, query_params):
-        search = ''
-        page_size = 50
-        page_index = 1
+    @blp.response(200, PaginatedIngredientsSchema())
+    @blp.paginate()
+    def get(self, query_params, pagination_parameters):
 
+        page_size = pagination_parameters.page_size
+        page = pagination_parameters.page
+
+        search = ''
         if "search" in query_params:
             search = query_params["search"]
 
-        if "page_size" in query_params:
-            page_size = query_params["page_size"]
+        ingredients = IngredientModel.query.where(IngredientModel.name.like("%" + search + "%"))
 
-        if "page_index" in query_params:
-            page_index = query_params["page_index"]
-
-        ingredients = (IngredientModel.query
-                       .where(IngredientModel.name.like("%" + search + "%"))
-                       .paginate(per_page=page_size, page=page_index))
-
-        return ingredients
+        return {
+            'results': ingredients.paginate(per_page=page_size, page=page),
+            'pagination': {
+                'total': ingredients.count(),
+                'page_size': page_size,
+                'page': page
+            }
+        }
 
     @blp.arguments(IngredientDetailsSchema)
     @blp.response(201, IngredientDetailsSchema)

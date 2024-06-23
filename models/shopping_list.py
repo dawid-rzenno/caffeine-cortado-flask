@@ -10,6 +10,8 @@ class ShoppingListModel(db.Model):
     name = db.Column(db.String, unique=True, nullable=False)
     description = db.Column(db.String, nullable=False)
 
+    # Details
+    price = db.Column(db.Float, nullable=False)
     ingredients = db.relationship("IngredientModel", secondary=shopping_list_ingredient, backref="shopping_lists")
 
     def __init__(self, request_data: dict):

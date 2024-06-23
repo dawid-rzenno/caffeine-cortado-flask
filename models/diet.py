@@ -7,9 +7,11 @@ class DietModel(db.Model):
     __tablename__ = "diet"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, unique=True, nullable=False)
     description = db.Column(db.String, nullable=False)
 
+    # Details
+    price = db.Column(db.Float, nullable=False)
     meals = db.relationship("MealModel", secondary=diet_meal, backref="diets")
 
     def __init__(self, request_data: dict):

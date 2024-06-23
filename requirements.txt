@@ -3,6 +3,6 @@ flask-sqlalchemy
 flask-smorest
 python-dotenv
 marshmallow~=3.21.2
-SQLAlchemy~=2.0.30
+SQLAlchemy~=1.4
 flask-cors
 psycopg2
